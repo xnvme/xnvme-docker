@@ -49,8 +49,9 @@ jobs:
 
     - name: Grab the xNVMe source via repos
       run: |
-        mkdir -p builddir
-        git clone --depth 1 https://github.com/OpenMPDK/xNVMe.git -b next builddir/xnvme
+        mkdir -p builddir/xnvme
+        wget https://github.com/OpenMPDK/xNVMe/tarball/next -O xnvme.tgz
+        tar xzf xnvme.tgz --strip-components=1 -C builddir/xnvme
 
     - name: Docker build
       run: |
