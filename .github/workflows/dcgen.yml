@@ -43,10 +43,10 @@ jobs:
       XNVME_REF: next
 
     steps:
-    - name: Grab xnvme-docker repos
+    - name: Grab xnvme-docker
       uses: actions/checkout@v3.1.0
 
-    - name: Grab xNVMe source
+    - name: Grab xNVMe
       run: |
         mkdir -p builddir/xnvme
         curl -L https://github.com/OpenMPDK/xNVMe/tarball/${XNVME_REF} -o xnvme.tgz
