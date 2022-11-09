@@ -51,4 +51,7 @@ jobs:
 
     - name: Docker build
       run: |
-        docker build -t xnvme-${{ matrix.container.os }}-${{ matrix.container.ver }}:next -f ${{ matrix.container.os }}/${{ matrix.container.ver }}/Dockerfile builddir
+        docker build \
+        -t xnvme-${{ matrix.container.os }}-${{ matrix.container.ver }}:next \
+        -f dockerfiles/${{ matrix.container.os }}/${{ matrix.container.ver }}/Dockerfile \
+        builddir
