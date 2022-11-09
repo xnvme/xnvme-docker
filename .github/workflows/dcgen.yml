@@ -40,6 +40,9 @@ jobs:
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'bionic'}
 
     steps:
+    - name: Grab stuff
+      uses: actions/checkout@v3.1.0
+
     - name: Grab the xNVMe source via repos
       run: |
         mkdir -p builddir/xnvme
