@@ -39,8 +39,6 @@ jobs:
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'bionic'}
 
-    container: refenv/alpine-bash
-
     steps:
     - name: Grab the xNVMe source via repos
       run: |
