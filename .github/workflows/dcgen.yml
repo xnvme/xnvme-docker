@@ -50,7 +50,7 @@ jobs:
     - name: Grab the xNVMe source via repos
       run: |
         mkdir -p builddir/xnvme
-        wget https://github.com/OpenMPDK/xNVMe/tarball/next -O xnvme.tgz
+        curl -L https://github.com/OpenMPDK/xNVMe/tarball/next -o xnvme.tgz
         tar xzf xnvme.tgz --strip-components=1 -C builddir/xnvme
 
     - name: Docker build
