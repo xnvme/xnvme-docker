@@ -1,0 +1,57 @@
+---
+name: dcgen
+
+on:
+  push:
+    branches:
+    - '*'
+    tags:
+    - '*'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  dockerize:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        container:
+        - {os: 'alpine', dh: 'refenv/alpine-bash', ver: 'latest'}
+        - {os: 'archlinux', dh: 'archlinux', ver: 'latest'}
+        - {os: 'centos', dh: 'tgagor/centos', ver: 'stream9'}
+        - {os: 'centos', dh: 'tgagor/centos', ver: 'stream8'}
+        - {os: 'centos', dh: 'centos', ver: 'centos7'}
+        - {os: 'debian', dh: 'debian', ver: 'bookworm'}
+        - {os: 'debian', dh: 'debian', ver: 'bullseye'}
+        - {os: 'debian', dh: 'debian', ver: 'buster'}
+        - {os: 'fedora', dh: 'fedora', ver: '36'}
+        - {os: 'fedora', dh: 'fedora', ver: '35'}
+        - {os: 'fedora', dh: 'fedora', ver: '34'}
+        - {os: 'gentoo', dh: 'gentoo/stage3', ver: 'latest'}
+        - {os: 'opensuse-tumbleweed', dh: 'opensuse/tumbleweed', ver: 'latest'}
+        - {os: 'opensuse-leap', dh: 'opensuse/leap', ver: '15.4'}
+        - {os: 'opensuse-leap', dh: 'opensuse/leap', ver: '15.3'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'jammy'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'bionic'}
+
+    container:
+      image: ${{ matrix.container.dh }}:${{ matrix.container.ver }}
+
+    steps:
+    - name: Container-preparation, openSUSE does not have tar and gzip...
+      if: contains(matrix.container.os, 'opensuse')
+      run: zypper --non-interactive install -y tar gzip
+
+    - name: Grab the xNVMe source via repos
+      run: |
+        mkdir -p builddir
+        git clone --depth 1 https://github.com/OpenMPDK/xNVMe.git -b next builddir/xnvme
+
+    - name: Docker build
+      run: |
+        docker build -t xnvme-${{ matrix.container.os }}-${{ matrix.container.ver }}:next -f ${{ matrix.container.os }}/${{ matrix.container.ver }}/Dockerfile builddir
