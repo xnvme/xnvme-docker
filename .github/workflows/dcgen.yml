@@ -39,14 +39,9 @@ jobs:
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'bionic'}
 
-    container:
-      image: ${{ matrix.container.dh }}:${{ matrix.container.ver }}
+    container: refenv/alpine-bash
 
     steps:
-    - name: Container-preparation, openSUSE does not have tar and gzip...
-      if: contains(matrix.container.os, 'opensuse')
-      run: zypper --non-interactive install -y tar gzip
-
     - name: Grab the xNVMe source via repos
       run: |
         mkdir -p builddir/xnvme
