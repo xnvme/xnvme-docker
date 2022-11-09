@@ -7,6 +7,8 @@ on:
     - '*'
     tags:
     - '*'
+  schedule:
+    - cron: '0 */12 * * *'
 
 defaults:
   run:
