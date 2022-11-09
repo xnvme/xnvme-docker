@@ -39,19 +39,33 @@ jobs:
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'bionic'}
 
+    env:
+      XNVME_REF: next
+
     steps:
-    - name: Grab stuff
+    - name: Grab xnvme-docker repos
       uses: actions/checkout@v3.1.0
 
-    - name: Grab the xNVMe source via repos
+    - name: Grab xNVMe source
       run: |
         mkdir -p builddir/xnvme
-        curl -L https://github.com/OpenMPDK/xNVMe/tarball/next -o xnvme.tgz
+        curl -L https://github.com/OpenMPDK/xNVMe/tarball/${XNVME_REF} -o xnvme.tgz
         tar xzf xnvme.tgz --strip-components=1 -C builddir/xnvme
 
-    - name: Docker build
+    - name: Build
       run: |
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${XNVME_REF}
         docker build \
-        -t xnvme-${{ matrix.container.os }}-${{ matrix.container.ver }}:next \
+        -t $IMAGE_ID \
+        -t xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${XNVME_REF} \
         -f dockerfiles/${{ matrix.container.os }}/${{ matrix.container.ver }}/Dockerfile \
         builddir
+
+    - name: Log into GitHub Container Registry
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Push to ghcr.io
+      run: |
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${XNVME_REF}
+        docker push $IMAGE_ID
