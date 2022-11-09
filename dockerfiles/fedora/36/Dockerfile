@@ -5,4 +5,4 @@ WORKDIR /root/xnvme
 COPY xnvme .
 RUN bash ./toolbox/pkgs/fedora-36.sh
 WORKDIR /root
-CMD ["bash"]
+RUN rm -rf /root/xnvme

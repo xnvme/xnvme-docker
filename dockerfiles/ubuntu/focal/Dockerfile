@@ -5,4 +5,4 @@ WORKDIR /root/xnvme
 COPY xnvme .
 RUN bash ./toolbox/pkgs/ubuntu-focal.sh
 WORKDIR /root
-CMD ["bash"]
+RUN rm -rf /root/xnvme

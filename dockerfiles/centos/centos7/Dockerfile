@@ -5,4 +5,4 @@ WORKDIR /root/xnvme
 COPY xnvme .
 RUN bash ./toolbox/pkgs/centos-centos7.sh
 WORKDIR /root
-CMD ["bash"]
+RUN rm -rf /root/xnvme
