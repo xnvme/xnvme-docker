@@ -27,6 +27,7 @@ jobs:
         - {os: 'centos', dh: 'tgagor/centos', ver: 'stream9'}
         - {os: 'centos', dh: 'tgagor/centos', ver: 'stream8'}
         - {os: 'centos', dh: 'centos', ver: 'centos7'}
+        - {os: 'citools', dh: '', ver: 'latest'}
         - {os: 'debian', dh: 'debian', ver: 'bookworm'}
         - {os: 'debian', dh: 'debian', ver: 'bullseye'}
         - {os: 'debian', dh: 'debian', ver: 'buster'}
