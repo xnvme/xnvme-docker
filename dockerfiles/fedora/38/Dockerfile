@@ -1,8 +1,8 @@
-FROM fedora:34
+FROM fedora:38
 LABEL maintainer "os@safl.dk"
 RUN mkdir -p /root/xnvme
 WORKDIR /root/xnvme
 COPY xnvme .
-RUN bash ./toolbox/pkgs/fedora-34.sh
+RUN bash ./toolbox/pkgs/fedora-38.sh
 WORKDIR /root
 RUN rm -rf /root/xnvme

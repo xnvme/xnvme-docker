@@ -31,19 +31,20 @@ jobs:
         - {os: 'debian', dh: 'debian', ver: 'bookworm'}
         - {os: 'debian', dh: 'debian', ver: 'bullseye'}
         - {os: 'debian', dh: 'debian', ver: 'buster'}
+        - {os: 'fedora', dh: 'fedora', ver: '38'}
+        - {os: 'fedora', dh: 'fedora', ver: '37'}
         - {os: 'fedora', dh: 'fedora', ver: '36'}
-        - {os: 'fedora', dh: 'fedora', ver: '35'}
-        - {os: 'fedora', dh: 'fedora', ver: '34'}
         - {os: 'gentoo', dh: 'gentoo/stage3', ver: 'latest'}
         - {os: 'opensuse-tumbleweed', dh: 'opensuse/tumbleweed', ver: 'latest'}
         - {os: 'opensuse-leap', dh: 'opensuse/leap', ver: '15.4'}
         - {os: 'opensuse-leap', dh: 'opensuse/leap', ver: '15.3'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'kinetic'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'jammy'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
-        - {os: 'ubuntu', dh: 'ubuntu', ver: 'bionic'}
 
     env:
-      XNVME_REF: next
+      XNVME_REF: docker
+      DOCKER_TAG: next
 
     steps:
     - name: Grab xnvme-docker
@@ -57,10 +58,9 @@ jobs:
 
     - name: Build
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${XNVME_REF}
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${DOCKER_TAG}
         docker build \
         -t $IMAGE_ID \
-        -t xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${XNVME_REF} \
         -f dockerfiles/${{ matrix.container.os }}/${{ matrix.container.ver }}/Dockerfile \
         builddir
 
@@ -70,5 +70,5 @@ jobs:
 
     - name: Push to ghcr.io
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${XNVME_REF}
-        docker push $IMAGE_ID
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-deps-${{ matrix.container.os }}-${{ matrix.container.ver }}:${DOCKER_TAG}
+        docker push ${IMAGE_ID}

@@ -1,8 +1,8 @@
-FROM fedora:35
+FROM ubuntu:kinetic
 LABEL maintainer "os@safl.dk"
 RUN mkdir -p /root/xnvme
 WORKDIR /root/xnvme
 COPY xnvme .
-RUN bash ./toolbox/pkgs/fedora-35.sh
+RUN bash ./toolbox/pkgs/ubuntu-kinetic.sh
 WORKDIR /root
 RUN rm -rf /root/xnvme
