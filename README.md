@@ -34,7 +34,7 @@ doing "verification" with emulated NVMe devices. However, it makes a lot more co
 debugging build-issues on the various distributions, and for the basic 'build-linux' jobs, reduces
 time spent by about 16min.
 
-## Maintenance
+## Maintenance (deps)
 
 When changes are made to Linux distribution support for xNVMe, that is, new distros added, or
 current distributions removed, then:
@@ -50,6 +50,11 @@ current distributions removed, then:
   - Go to the landing packge for the Docker Image / package
   - Click on Package Settings
   - Scroll to the bottom and blick on "Change Visilibility"
+
+## Maintenance (qemu)
+
+In addition to the docker-images for build/dependencies, then a docker-image is
+provided containing qemu-nvme with bleeding-edge functionality.
 
 ## Wishlist
 
