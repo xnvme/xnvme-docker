@@ -5,4 +5,4 @@ WORKDIR /root/xnvme
 COPY xnvme .
 RUN bash ./toolbox/pkgs/debian-bookworm.sh
 WORKDIR /root
-RUN rm -rf /root/xnvme
+CMD ["bash"]

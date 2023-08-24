@@ -5,4 +5,4 @@ WORKDIR /root/xnvme
 COPY xnvme .
 RUN bash ./toolbox/pkgs/debian-bullseye.sh
 WORKDIR /root
-RUN rm -rf /root/xnvme
+CMD ["bash"]

@@ -5,4 +5,4 @@ WORKDIR /root/xnvme
 COPY xnvme .
 RUN bash ./toolbox/pkgs/ubuntu-kinetic.sh
 WORKDIR /root
-RUN rm -rf /root/xnvme
+CMD ["bash"]
