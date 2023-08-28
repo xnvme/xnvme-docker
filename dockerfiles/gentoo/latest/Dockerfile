@@ -3,6 +3,6 @@ LABEL maintainer "os@safl.dk"
 RUN mkdir -p /root/xnvme
 WORKDIR /root/xnvme
 COPY xnvme .
-RUN bash ./toolbox/pkgs/gentoo-latest.sh
+RUN bash -e ./toolbox/pkgs/gentoo-latest.sh
 WORKDIR /root
 CMD ["bash"]
