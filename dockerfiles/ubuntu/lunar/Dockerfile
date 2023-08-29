@@ -1,8 +1,8 @@
-FROM centos:centos7
+FROM ubuntu:lunar
 LABEL maintainer "os@safl.dk"
 RUN mkdir -p /root/xnvme
 WORKDIR /root/xnvme
 COPY xnvme .
-RUN bash -e ./toolbox/pkgs/centos-centos7.sh
+RUN bash -e ./toolbox/pkgs/ubuntu-lunar.sh
 WORKDIR /root
 CMD ["bash"]
