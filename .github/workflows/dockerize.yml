@@ -1,12 +1,12 @@
 ---
-name: dcgen
+name: dockerize
 
 on:
   push:
     branches:
-    - '*'
-    tags:
-    - '*'
+    - 'main'
+    - 'next'
+    - 'exp'
   schedule:
     - cron: '0 */12 * * *'
 
@@ -42,8 +42,8 @@ jobs:
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
 
     env:
-      XNVME_REF: docker
-      DOCKER_TAG: next
+      XNVME_REF: dockerize-for-${{ github.ref_name }}
+      DOCKER_TAG: ${{ github.ref_name }}
 
     steps:
     - name: Grab xnvme-docker
