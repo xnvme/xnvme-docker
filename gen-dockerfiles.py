@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-    Generate a 'Dockerfile' for each distro defined in '.github/workflows/dcgen.yml'
+    Generate a 'Dockerfile' for each distro defined in '.github/workflows/dockerize.yml'
 
     It uses a jinja2 template in 'dockerfile.template'
 """
@@ -10,7 +10,7 @@ import yaml
 
 def main():
 
-    with Path(".github/workflows/dcgen.yml").open() as yfile:
+    with Path(".github/workflows/dockerize.yml").open() as yfile:
         raw = yaml.safe_load(yfile)
 
     with Path("dockerfile.template").open() as tfile:
