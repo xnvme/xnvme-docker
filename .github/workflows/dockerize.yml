@@ -34,6 +34,7 @@ jobs:
         - {os: 'fedora', dh: 'fedora', ver: '38'}
         - {os: 'gentoo', dh: 'gentoo/stage3', ver: 'latest'}
         - {os: 'opensuse-tumbleweed', dh: 'opensuse/tumbleweed', ver: 'latest'}
+        - {os: 'oraclelinux', dh: 'oraclelinux', ver: '9'}
         - {os: 'rockylinux', dh: 'rockylinux', ver: '9.2'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'jammy'}
