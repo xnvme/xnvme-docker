@@ -2,10 +2,11 @@
 name: dockerize
 
 on:
+  workflow_dispatch:
   push:
     branches:
-    - 'main'
     - 'next'
+    - 'main'
     - 'exp'
   schedule:
     - cron: '0 */12 * * *'
