@@ -11,6 +11,7 @@
 name: qemu
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - 'qemu'
