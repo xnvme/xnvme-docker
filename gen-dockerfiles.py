@@ -3,29 +3,46 @@
     Generate a 'Dockerfile' for each distro defined in '.github/workflows/dockerize.yml'
 
     It uses a jinja2 template in 'dockerfile.template'
+
+    In addition then two other Dockerfiles are generated using different templates:
+
+    * templates/packaging-debian.template
+    * templates/citools.template
 """
 from pathlib import Path
 from jinja2 import Template
 import yaml
 
-def main():
+
+def get_distros():
+    """Returns a list of distributions to generate docker images for."""
 
     with Path(".github/workflows/dockerize.yml").open() as yfile:
         raw = yaml.safe_load(yfile)
 
-    with Path("dockerfile.template").open() as tfile:
-        default_template = Template(tfile.read())
+    return raw["jobs"]["dockerize"]["strategy"]["matrix"]["container"]
 
-    with Path("citools.template").open() as tfile:
-        citools_template = Template(tfile.read())
 
-    distros = raw["jobs"]["dockerize"]["strategy"]["matrix"]["container"]
-    for distro in distros:
+def main():
+    templates = {
+        p.stem: Template(p.open().read())
+        for p in (Path.cwd() / "templates").glob("*.template")
+    }
+
+    for distro in get_distros():
         path = Path("dockerfiles") / distro["os"] / distro["ver"] / "Dockerfile"
         path.parent.mkdir(parents=True, exist_ok=True)
+
+        if distro["ver"] == "citools":
+            template = templates["citools"]
+        elif distro["ver"] == "packaging":
+            template = templates["packaging-debian"]
+        else:
+            template = templates["distro"]
+
         with path.open("w") as dfile:
-            template = default_template if distro["os"] != "citools" else citools_template
             dfile.write(template.render(distro=distro))
+
 
 if __name__ == "__main__":
     main()

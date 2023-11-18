@@ -1,0 +1,26 @@
+FROM debian:bookworm
+LABEL maintainer "os@safl.dk"
+
+RUN apt-get -qy update && \
+	apt-get -qy \
+		-o "Dpkg::Options::=--force-confdef" \
+		-o "Dpkg::Options::=--force-confold" upgrade && \
+	apt-get -qy autoclean && \
+  apt-get -qyf install \
+  autotools-dev \
+  build-essential \
+  debhelper \
+  devscripts \
+  dh-make \
+  dh-python \
+  gcc \
+  git \
+  libaio-dev \
+  liburing-dev \
+  lintian \
+  meson \
+  sudo \
+  neovim \
+  python3
+
+CMD ["bash"]
