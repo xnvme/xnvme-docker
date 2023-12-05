@@ -1,12 +1,11 @@
 FROM debian:bookworm
 LABEL maintainer "os@safl.dk"
+RUN mkdir -p /opt
+COPY xnvme/toolbox /opt/toolbox
+WORKDIR /opt
+RUN bash -e ./toolbox/pkgs/debian-bookworm.sh
 
-RUN apt-get -qy update && \
-	apt-get -qy \
-		-o "Dpkg::Options::=--force-confdef" \
-		-o "Dpkg::Options::=--force-confold" upgrade && \
-	apt-get -qy autoclean && \
-  apt-get -qyf install \
+RUN  apt-get -qyf install \
   autotools-dev \
   build-essential \
   debhelper \
@@ -23,4 +22,5 @@ RUN apt-get -qy update && \
   neovim \
   python3
 
+WORKDIR /root
 CMD ["bash"]
