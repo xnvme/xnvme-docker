@@ -5,7 +5,7 @@ COPY xnvme/toolbox /opt/toolbox
 WORKDIR /opt
 RUN bash -e ./toolbox/pkgs/debian-bookworm.sh
 
-RUN  apt-get -qyf install \
+RUN apt-get -qyf install \
   autotools-dev \
   build-essential \
   debhelper \

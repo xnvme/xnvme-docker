@@ -26,7 +26,6 @@ jobs:
         - {os: 'alpine', dh: 'refenv/alpine-bash', ver: 'latest'}
         - {os: 'archlinux', dh: 'archlinux', ver: 'latest'}
         - {os: 'centos', dh: 'tgagor/centos', ver: 'stream9'}
-        - {os: 'debian', dh: 'debian', ver: 'citools'}
         - {os: 'debian', dh: 'debian', ver: 'packaging'}
         - {os: 'debian', dh: 'debian', ver: 'bookworm'}
         - {os: 'debian', dh: 'debian', ver: 'bullseye'}
@@ -34,6 +33,7 @@ jobs:
         - {os: 'fedora', dh: 'fedora', ver: '39'}
         - {os: 'fedora', dh: 'fedora', ver: '40'}
         - {os: 'fedora', dh: 'fedora', ver: '41'}
+        - {os: 'fedora', dh: 'fedora', ver: 'citools'}
         - {os: 'gentoo', dh: 'gentoo/stage3', ver: 'latest'}
         - {os: 'opensuse-tumbleweed', dh: 'opensuse/tumbleweed', ver: 'latest'}
         - {os: 'oraclelinux', dh: 'oraclelinux', ver: '9'}
@@ -48,7 +48,7 @@ jobs:
 
     steps:
     - name: Grab xnvme-docker
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.7
 
     - name: Grab xNVMe
       run: |
