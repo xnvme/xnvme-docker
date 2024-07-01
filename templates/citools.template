@@ -11,7 +11,7 @@ RUN dnf -y install --allowerasing \
 	curl \
 	doxygen \
 	git \
-	graphviz
+	graphviz \
 	make \
 	pipx \
 	pre-commit \
