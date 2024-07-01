@@ -15,8 +15,8 @@ RUN dnf -y install --allowerasing \
 	make \
 	pipx \
 	pre-commit \
-    shellcheck \
-    txt2man
+	shellcheck \
+	txt2man
 
 RUN pipx install kmdo poetry
 
