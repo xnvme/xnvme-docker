@@ -6,17 +6,17 @@ WORKDIR /root
 
 RUN dnf -y install --allowerasing \
 	clang-tools-extra \
+	conda \
 	ctags \
 	curl \
+	doxygen \
 	git \
+	graphviz
 	make \
-	pre-commit \
-    shellcheck \
-    txt2man \
 	pipx \
 	pre-commit \
-	doxygen \
-	graphviz
+    shellcheck \
+    txt2man
 
 RUN pipx install kmdo poetry
 
