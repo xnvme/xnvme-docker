@@ -40,7 +40,7 @@ jobs:
         - {os: 'rockylinux', dh: 'rockylinux', ver: '9.2'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'jammy'}
-        - {os: 'ubuntu', dh: 'ubuntu', ver: 'lunar'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'oracular'}
 
     env:
       XNVME_REF: dockerize-for-${{ github.ref_name }}
