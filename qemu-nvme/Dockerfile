@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM ghcr.io/refenv/cijoe-docker:v0.9.52
 
 WORKDIR /opt
 
@@ -45,9 +45,11 @@ RUN aptitude -q -y -f install \
 
 RUN ln -s /usr/bin/python3.8 /usr/bin/python
 
-# Install cijoe and the packages example and qemu packages
-RUN pip install cijoe cijoe-pkg-qemu || true
-RUN pip3 install cijoe cijoe-pkg-qemu || true
+# Uninstall and install cijoe
+RUN pip uninstall cijoe || true
+RUN pip3 uninstall cijoe || true
+RUN pip install cijoe==$CIJOE_VERSION || true
+RUN pip3 install cijoe==$CIJOE_VERSION || true
 
 # Setup SSH
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config

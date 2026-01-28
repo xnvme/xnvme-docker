@@ -1,12 +1,12 @@
 #
-# Build a debian:bullseye based docker image
-# Build qemu/x86_64-softmmu on Debian Bullseye
+# Build a debian:bookworm based docker image
+# Build qemu/x86_64-softmmu on Debian Bookworm
 #  - Containing the qemu-build
 #  - Containing latest CIJOE
 #  - envs, guests and scripts for CIJOE
 #
 # Uses the qemu from https://github.com/OpenMPDK/qemu.git branch: 'for-xnvme'
-# Uses the latest CIJOE available from PyPI
+# Uses the latest CIJOE image from https://github.com/refenv/cijoe/pkgs/container/cijoe-docker
 #
 name: qemu
 
@@ -25,7 +25,7 @@ jobs:
   build-qemu:
 
     runs-on: ubuntu-latest
-    container: debian:bullseye
+    container: debian:bookworm
 
     steps:
     - name: Prep, 1..4
