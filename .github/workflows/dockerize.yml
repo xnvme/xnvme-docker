@@ -28,19 +28,18 @@ jobs:
         - {os: 'centos', dh: 'tgagor/centos', ver: 'stream9'}
         - {os: 'debian', dh: 'debian', ver: 'packaging'}
         - {os: 'debian', dh: 'debian', ver: 'bookworm'}
-        - {os: 'debian', dh: 'debian', ver: 'bullseye'}
+        - {os: 'debian', dh: 'debian', ver: 'forky'}
         - {os: 'debian', dh: 'debian', ver: 'trixie'}
-        - {os: 'fedora', dh: 'fedora', ver: '39'}
-        - {os: 'fedora', dh: 'fedora', ver: '40'}
-        - {os: 'fedora', dh: 'fedora', ver: '41'}
+        - {os: 'fedora', dh: 'fedora', ver: '42'}
+        - {os: 'fedora', dh: 'fedora', ver: '43'}
         - {os: 'fedora', dh: 'fedora', ver: 'citools'}
         - {os: 'gentoo', dh: 'gentoo/stage3', ver: 'latest'}
         - {os: 'opensuse-tumbleweed', dh: 'opensuse/tumbleweed', ver: 'latest'}
         - {os: 'oraclelinux', dh: 'oraclelinux', ver: '9'}
-        - {os: 'rockylinux', dh: 'rockylinux', ver: '9.2'}
-        - {os: 'ubuntu', dh: 'ubuntu', ver: 'focal'}
+        - {os: 'rockylinux', dh: 'rockylinux', ver: '9.6'}
         - {os: 'ubuntu', dh: 'ubuntu', ver: 'jammy'}
-        - {os: 'ubuntu', dh: 'ubuntu', ver: 'lunar'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'noble'}
+        - {os: 'ubuntu', dh: 'ubuntu', ver: 'questing'}
 
     env:
       XNVME_REF: dockerize-for-${{ github.ref_name }}
