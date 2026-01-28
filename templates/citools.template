@@ -1,6 +1,6 @@
 FROM ghcr.io/xnvme/xnvme-deps-fedora-40:next
 
-LABEL maintainer "os@safl.dk"
+LABEL maintainer="os@safl.dk"
 
 WORKDIR /root
 

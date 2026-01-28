@@ -1,5 +1,5 @@
 FROM oraclelinux:9
-LABEL maintainer "os@safl.dk"
+LABEL maintainer="os@safl.dk"
 RUN mkdir -p /opt
 COPY xnvme/toolbox /opt/toolbox
 WORKDIR /opt
