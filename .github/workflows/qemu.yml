@@ -1,11 +1,11 @@
 #
-# Build a debian:bullseye based docker image
-# Build qemu/x86_64-softmmu on Debian Bullseye
+# Build a debian:trixie based docker image
+# Build qemu/x86_64-softmmu on Debian Trixie
 #  - Containing the qemu-build
 #  - Containing latest CIJOE
 #  - envs, guests and scripts for CIJOE
 #
-# Uses the qemu from https://github.com/OpenMPDK/qemu.git branch: 'for-xnvme'
+# Uses the qemu from https://github.com/SamsungDS/qemu branch: 'for-xnvme'
 # Uses the latest CIJOE available from PyPI
 #
 name: qemu
@@ -25,70 +25,55 @@ jobs:
   build-qemu:
 
     runs-on: ubuntu-latest
-    container: debian:bullseye
+    container: debian:trixie
 
     steps:
-    - name: Prep, 1..4
+    - name: Install build dependencies
       run: |
         apt-get -qy update
         apt-get -qy \
           -o "Dpkg::Options::=--force-confdef" \
           -o "Dpkg::Options::=--force-confold" upgrade
         apt-get -qy install \
-          apt-utils \
-          aptitude \
-          pkg-config
+          autoconf \
+          automake \
+          bc \
+          bison \
+          bridge-utils \
+          build-essential \
+          ca-certificates \
+          cpio \
+          curl \
+          file \
+          flex \
+          gawk \
+          git \
+          libaio-dev \
+          libglib2.0-0t64 \
+          libglib2.0-dev \
+          libguestfs-tools \
+          liblzo2-dev \
+          libpixman-1-0 \
+          libpixman-1-dev \
+          libpmem-dev \
+          libslirp-dev \
+          libvirt-dev \
+          libvirt0 \
+          meson \
+          ninja-build \
+          pkg-config \
+          python3 \
+          python3-dev \
+          python3-setuptools \
+          python3-venv \
+          rsync \
+          texinfo \
+          uuid-dev
         apt-get -qy autoclean
-
-    - name: Prep, 2..4
-      run: |
-        aptitude -q -y -f install \
-        autoconf \
-        automake \
-        bc \
-        bison \
-        bridge-utils \
-        build-essential \
-        ca-certificates \
-        cpio \
-        flex \
-        gawk \
-        git \
-        rsync
-
-    - name: Prep, 3..4
-      run: |
-        aptitude -q -y -f install \
-        curl \
-        file \
-        libaio-dev \
-        libglib2.0-0 \
-        libglib2.0-dev \
-        libguestfs-tools \
-        liblzo2-dev \
-        libpmem-dev \
-        libvirt-dev \
-        libvirt0 \
-        meson \
-        ninja-build \
-        python3 \
-        python3-dev \
-        python3-distutils \
-        python3-setuptools \
-        python3-venv \
-        texinfo \
-        uuid-dev
-
-    - name: Prep, 4..4
-      run: |
-        aptitude -q -y -f install \
-        libpixman-1-0 \
-        libpixman-1-dev \
-        libslirp-dev
 
     - name: Grab qemu source
       run: |
-        git clone --recursive https://github.com/OpenMPDK/qemu.git
+        git clone --recursive https://github.com/SamsungDS/qemu
         cd qemu
         git checkout for-xnvme
 
@@ -129,7 +114,7 @@ jobs:
         make install
 
     - name: Upload Binaries
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: qemu-binaries
         path: /opt/qemu
@@ -143,14 +128,14 @@ jobs:
 
     steps:
     - name: Grab sources
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Create a docker context
       run: |
         mkdir -p /tmp/docker
 
     - name: Grab the qemu binaries
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: qemu-binaries
         path: /tmp/docker/qemu
