@@ -16,7 +16,9 @@ RUN apt-get -qy install \
 	bridge-utils \
 	build-essential \
 	cloud-image-utils \
+	doxygen \
 	git \
+	graphviz \
 	htop \
 	libaio-dev \
 	libglib2.0-0t64 \
@@ -35,6 +37,7 @@ RUN apt-get -qy install \
 	python3 \
 	ssh \
 	time \
+	universal-ctags \
 	vim
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
