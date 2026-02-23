@@ -13,6 +13,8 @@ RUN apt-get -qy update && \
 	apt-get -qy autoclean
 
 RUN apt-get -qy install \
+	autoconf \
+	bash-completion \
 	bridge-utils \
 	build-essential \
 	cloud-image-utils \
@@ -21,29 +23,53 @@ RUN apt-get -qy install \
 	graphviz \
 	htop \
 	libaio-dev \
+	libarchive-dev \
+	libcunit1-dev \
 	libglib2.0-0t64 \
 	libglib2.0-dev \
 	libguestfs-tools \
+	libisal-dev \
 	liblzo2-dev \
+	libncurses5-dev \
+	libnuma-dev \
 	libpixman-1-0 \
 	libpixman-1-dev \
 	libpmem-dev \
+	libssl-dev \
+	libtool \
+	liburing-dev \
 	libvirt-dev \
 	libvirt0 \
 	lshw \
+	make \
+	meson \
+	nasm \
 	openssh-server \
+	openssl \
+	patch \
 	pipx \
+	pkg-config \
 	procps \
 	python3 \
+	python3-pip \
+	python3-pyelftools \
+	python3-venv \
 	ssh \
 	time \
 	universal-ctags \
+	uuid-dev \
 	vim
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # We want pipx to work...
 RUN pipx ensurepath
+
+# Install CIJOE
+RUN pipx install cijoe==v0.9.58 --include-deps && \
+	pipx inject cijoe matplotlib && \
+	pipx inject cijoe numpy && \
+	pipx install rst2pdf
 
 # Setup SSH
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
