@@ -1,4 +1,4 @@
-FROM ghcr.io/xnvme/xnvme-deps-fedora-40:next
+FROM ghcr.io/xnvme/xnvme-deps-fedora-42:main
 
 LABEL maintainer="os@safl.dk"
 

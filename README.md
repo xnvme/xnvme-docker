@@ -15,7 +15,7 @@ and libraries needed to build and run xNVMe.
 The Docker images generated here are intended to be used by the xNVMe GitHUB actions. However, they
 can of course be utilized manually, for example::
 
-    docker run -it ghcr.io/xnvme/xnvme-deps-alpine-latest:next bash
+    docker run -it ghcr.io/xnvme/xnvme-deps-alpine-latest:main bash
 
 ### Buildtime / Motivation for this
 
