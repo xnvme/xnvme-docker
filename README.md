@@ -19,17 +19,16 @@ can of course be utilized manually, for example::
 
 ## Container types
 
-Three kinds of images are produced, each from its own template in ``templates/``:
+Two kinds of images are produced, each from its own template in ``templates/``:
 
 * **deps** (``distro.template``) — one per Linux distribution; runs the distro's
   ``toolbox/pkgs/<os>-<ver>.sh`` install-script from the xNVMe repository. Published as
   ``ghcr.io/xnvme/xnvme-deps-<os>-<ver>:main``.
-* **citools** (``citools.template``) — based on the fedora deps image, adds CI tooling
-  (clang-format, pre-commit, shellcheck, doxygen, kmdo, ...). Published as
-  ``ghcr.io/xnvme/xnvme-deps-fedora-citools:main``.
-* **packaging** (``packaging-debian.template``) — Debian with the packaging toolchain
-  (debhelper, devscripts, lintian, ...). Published as
-  ``ghcr.io/xnvme/xnvme-deps-debian-packaging:main``.
+* **citools** (``citools.template``) — based on the debian-trixie deps image, adds CI tooling
+  (clang-format, pre-commit, shellcheck, doxygen, kmdo, ...) and the Debian packaging
+  toolchain (debhelper, devscripts, lintian, ...). Published as
+  ``ghcr.io/xnvme/xnvme-citools-debian-latest:main``. Replaces the former
+  ``xnvme-deps-fedora-citools`` and ``xnvme-deps-debian-packaging`` images.
 
 ## Use in xNVMe CI
 
@@ -39,21 +38,22 @@ workflow in the xNVMe repository. As of June 2026 the jobs map to images as foll
 | verify.yml job        | Image                                              |
 |-----------------------|----------------------------------------------------|
 | ``source-archive``    | ``xnvme-deps-alpine-latest:main``                  |
-| ``source-format-check`` | ``xnvme-deps-fedora-citools:main``               |
-| ``test-gen-targets``  | ``xnvme-deps-citools-latest:main`` (stale, see below) |
+| ``source-format-check`` | ``xnvme-citools-debian-latest:main``             |
+| ``test-gen-targets``  | ``xnvme-citools-debian-latest:main``               |
 | ``build-rust``        | ``xnvme-deps-debian-trixie:main``                  |
 | ``build-python``      | ``xnvme-deps-debian-trixie:main``                  |
 | ``build-linux``       | ``xnvme-deps-<os>-<ver>:main`` (17-distro matrix)  |
-| ``packaging-debian``  | ``xnvme-deps-debian-packaging:main``               |
+| ``packaging-debian``  | ``xnvme-citools-debian-latest:main``               |
 | ``verify``, ``docgen`` | ``ghcr.io/safl/nosi/ubuntu-2604-docker:latest`` (from [nosi](https://github.com/safl/nosi), not built here) |
 | ``verify-physical``   | plain ``debian:trixie`` (not built here)           |
 
 Notes:
 
-* ``xnvme-deps-citools-latest:main`` is a **stale** package from November 2023; the citools
-  image was since renamed (``citools/latest`` → ``debian/citools`` → ``fedora/citools``) and the
-  old name is no longer rebuilt. The ``test-gen-targets`` job should be pointed at
-  ``xnvme-deps-fedora-citools:main`` instead.
+* verify.yml still references the predecessors of the citools image:
+  ``xnvme-deps-fedora-citools`` (``source-format-check``), the stale
+  ``xnvme-deps-citools-latest`` frozen in November 2023 (``test-gen-targets``), and
+  ``xnvme-deps-debian-packaging`` (``packaging-debian``). All three jobs should be pointed
+  at ``xnvme-citools-debian-latest:main``.
 * Built here but currently unused by verify.yml: ``debian-bullseye`` and ``rockylinux-10.1``
   (the matrix uses ``rockylinux-9.7``).
 * The distro-matrix in ``build-linux`` is maintained by hand in verify.yml — keep it in sync

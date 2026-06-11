@@ -2,12 +2,9 @@
 """
     Generate a 'Dockerfile' for each distro defined in '.github/workflows/dockerize.yml'
 
-    It uses a jinja2 template in 'dockerfile.template'
-
-    In addition then two other Dockerfiles are generated using different templates:
-
-    * templates/packaging-debian.template
-    * templates/citools.template
+    Each matrix-entry is rendered using 'templates/<kind>.template', where 'kind'
+    defaults to 'distro'. The only other kind is 'citools'; CI and Debian
+    packaging tooling on top of a deps-image.
 """
 from pathlib import Path
 from jinja2 import Template
@@ -33,12 +30,7 @@ def main():
         path = Path("dockerfiles") / distro["os"] / distro["ver"] / "Dockerfile"
         path.parent.mkdir(parents=True, exist_ok=True)
 
-        if distro["ver"] == "citools":
-            template = templates["citools"]
-        elif distro["ver"] == "packaging":
-            template = templates["packaging-debian"]
-        else:
-            template = templates["distro"]
+        template = templates[distro.get("kind", "distro")]
 
         with path.open("w") as dfile:
             dfile.write(template.render(distro=distro))
