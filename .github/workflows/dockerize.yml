@@ -10,6 +10,10 @@ on:
   schedule:
     - cron: '0 */12 * * *'
 
+concurrency:
+  group: dockerize-${{ github.ref }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
