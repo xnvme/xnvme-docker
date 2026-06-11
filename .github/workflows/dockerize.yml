@@ -19,6 +19,23 @@ defaults:
     shell: bash
 
 jobs:
+  gen-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Regenerate the Dockerfiles
+      run: |
+        pip install jinja2 pyyaml
+        rm -rf dockerfiles
+        python3 gen-dockerfiles.py
+
+    - name: Fail on drift between committed and generated Dockerfiles
+      run: |
+        git add -A dockerfiles
+        git diff --cached --exit-code
+
   dockerize:
     runs-on: ubuntu-latest
 
