@@ -22,7 +22,7 @@ def get_distros():
 
 def main():
     templates = {
-        p.stem: Template(p.open().read())
+        p.stem: Template(p.open().read(), keep_trailing_newline=True)
         for p in (Path.cwd() / "templates").glob("*.template")
     }
 
