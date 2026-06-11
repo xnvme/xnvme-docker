@@ -32,7 +32,6 @@ jobs:
         - {os: 'centos', dh: 'quay.io/centos/centos', ver: 'stream10'}
         - {os: 'debian', dh: 'debian', ver: 'latest', kind: 'citools'}
         - {os: 'debian', dh: 'debian', ver: 'bookworm'}
-        - {os: 'debian', dh: 'debian', ver: 'bullseye'}
         - {os: 'debian', dh: 'debian', ver: 'forky'}
         - {os: 'debian', dh: 'debian', ver: 'trixie'}
         - {os: 'fedora', dh: 'fedora', ver: '42'}
