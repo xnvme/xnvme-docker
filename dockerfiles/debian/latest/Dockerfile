@@ -1,6 +1,7 @@
 FROM ghcr.io/xnvme/xnvme-deps-debian-trixie:main
 
 LABEL maintainer="os@safl.dk"
+LABEL org.opencontainers.image.source="https://github.com/xnvme/xnvme-docker"
 
 WORKDIR /root
 
