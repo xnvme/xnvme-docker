@@ -14,6 +14,10 @@ concurrency:
   group: dockerize-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  packages: write
+
 defaults:
   run:
     shell: bash
@@ -65,7 +69,7 @@ jobs:
 
     env:
       XNVME_REF: dockerize-for-${{ github.ref_name }}
-      DOCKER_TAG: ${{ github.ref_name }}
+      IMAGE_ID: ghcr.io/${{ github.repository_owner }}/xnvme-${{ matrix.container.kind || 'deps' }}-${{ matrix.container.os }}-${{ matrix.container.ver }}:${{ github.ref_name }}
 
     steps:
     - name: Grab xnvme-docker
@@ -74,14 +78,13 @@ jobs:
     - name: Grab xNVMe
       run: |
         mkdir -p builddir/xnvme
-        curl -L https://github.com/OpenMPDK/xNVMe/tarball/${XNVME_REF} -o xnvme.tgz
+        curl -fSL https://github.com/xnvme/xnvme/tarball/${XNVME_REF} -o xnvme.tgz
         tar xzf xnvme.tgz --strip-components=1 -C builddir/xnvme
 
     - name: Build
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-${{ matrix.container.kind || 'deps' }}-${{ matrix.container.os }}-${{ matrix.container.ver }}:${DOCKER_TAG}
         docker build \
-        -t $IMAGE_ID \
+        -t ${IMAGE_ID} \
         -f dockerfiles/${{ matrix.container.os }}/${{ matrix.container.ver }}/Dockerfile \
         builddir
 
@@ -91,5 +94,4 @@ jobs:
 
     - name: Push to ghcr.io
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/xnvme-${{ matrix.container.kind || 'deps' }}-${{ matrix.container.os }}-${{ matrix.container.ver }}:${DOCKER_TAG}
         docker push ${IMAGE_ID}
