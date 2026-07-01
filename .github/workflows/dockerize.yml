@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Regenerate the Dockerfiles
       run: |
@@ -73,7 +73,7 @@ jobs:
 
     steps:
     - name: Grab xnvme-docker
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Grab xNVMe
       run: |
