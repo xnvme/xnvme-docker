@@ -2,9 +2,7 @@
 """
     Generate a 'Dockerfile' for each distro defined in '.github/workflows/dockerize.yml'
 
-    Each matrix-entry is rendered using 'templates/<kind>.template', where 'kind'
-    defaults to 'distro'. The only other kind is 'citools'; CI and Debian
-    packaging tooling on top of a deps-image.
+    Each matrix-entry is rendered using 'templates/distro.template'.
 """
 from pathlib import Path
 from jinja2 import Template
@@ -21,16 +19,13 @@ def get_distros():
 
 
 def main():
-    templates = {
-        p.stem: Template(p.open().read(), keep_trailing_newline=True)
-        for p in (Path.cwd() / "templates").glob("*.template")
-    }
+    template = Template(
+        (Path.cwd() / "templates" / "distro.template").read_text(), keep_trailing_newline=True
+    )
 
     for distro in get_distros():
         path = Path("dockerfiles") / distro["os"] / distro["ver"] / "Dockerfile"
         path.parent.mkdir(parents=True, exist_ok=True)
-
-        template = templates[distro.get("kind", "distro")]
 
         with path.open("w") as dfile:
             dfile.write(template.render(distro=distro))
