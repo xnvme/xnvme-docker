@@ -1,0 +1,10 @@
+version = 1
+SPDX-PackageName = "xnvme-docker"
+SPDX-PackageSupplier = "Simon A. F. Lund <os@safl.dk>"
+SPDX-PackageDownloadLocation = "https://github.com/xnvme/xnvme-docker"
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["Simon A. F. Lund <os@safl.dk>", "Samsung Electronics Co., Ltd"]
+SPDX-License-Identifier = "BSD-3-Clause"

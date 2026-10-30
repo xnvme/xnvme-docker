@@ -37,6 +37,21 @@ The Linux build matrix is listed by hand in the ``matrices`` job of xNVMe's ``ve
 it in sync with the matrix in ``.github/workflows/dockerize.yml`` here. ``rockylinux-10.1`` is
 built here but not yet in xNVMe's matrix.
 
+## Licensing and bill of materials
+
+The repository is REUSE compliant: ``REUSE.toml`` states the copyright and license of every file,
+and the ``reuse`` job runs ``reuse lint`` before any image is built.
+
+Each image is pushed with an SPDX SBOM and SLSA provenance attached, both made by BuildKit while
+it builds the image. Read the SBOM of an image with:
+
+    docker buildx imagetools inspect ghcr.io/xnvme/xnvme-deps-alpine-latest:main --format '{{ json .SBOM.SPDX }}'
+
+The ``dockerize`` job also uploads each image's SBOM as an artifact of the workflow run, and lists
+its packages' declared licenses, with a count of each, in the run's summary. The list is a
+report, not a gate: the images carry each distribution's own packages, whose licenses are the
+distribution's to state, and a package without a declared license is listed as ``NOASSERTION``.
+
 ## Why
 
 Installing the dependencies takes from about a minute on most distributions to about 18 minutes
