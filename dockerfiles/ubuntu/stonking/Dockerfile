@@ -1,9 +1,9 @@
-FROM oraclelinux:9
+FROM ubuntu:stonking
 LABEL maintainer="os@safl.dk"
 LABEL org.opencontainers.image.source="https://github.com/xnvme/xnvme-docker"
 RUN mkdir -p /opt
 COPY xnvme/toolbox /opt/toolbox
 WORKDIR /opt
-RUN bash -e ./toolbox/pkgs/oraclelinux-9.sh
+RUN bash -e ./toolbox/pkgs/ubuntu-stonking.sh
 WORKDIR /root
 CMD ["bash"]
