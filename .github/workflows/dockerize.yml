@@ -66,6 +66,7 @@ jobs:
         - {os: 'fedora', dh: 'fedora', ver: '43'}
         - {os: 'fedora', dh: 'fedora', ver: '44'}
         - {os: 'gentoo', dh: 'gentoo/stage3', ver: 'latest'}
+        - {os: 'nixos', dh: 'nixos/nix', ver: 'latest'}
         - {os: 'opensuse-tumbleweed', dh: 'opensuse/tumbleweed', ver: 'latest'}
         - {os: 'rockylinux', dh: 'rockylinux/rockylinux', ver: '9.7'}
         - {os: 'rockylinux', dh: 'rockylinux/rockylinux', ver: '10.1'}
